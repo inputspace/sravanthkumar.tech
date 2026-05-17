@@ -22,8 +22,8 @@ html {
 }
 
 body {
-  background: var(--bg);
-  color: white;
+  background: white;
+  color: black;
   font-family: var(--mono);
   font-weight: 300;
   line-height: 1.6;
