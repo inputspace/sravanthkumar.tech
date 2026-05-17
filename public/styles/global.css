@@ -23,7 +23,7 @@ html {
 
 body {
   background: var(--bg);
-  color: var(--text);
+  color: white;
   font-family: var(--mono);
   font-weight: 300;
   line-height: 1.6;
