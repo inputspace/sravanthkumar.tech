@@ -23,7 +23,7 @@ html {
 
 body {
   background: white;
-  color: black;
+  color: green;
   font-family: var(--mono);
   font-weight: 300;
   line-height: 1.6;
@@ -96,7 +96,7 @@ nav {
   display: inline-block;
   width: 2rem;
   height: 1px;
-  background: var(--accent);
+  background: white;
 }
 
 .hero-name {
@@ -173,11 +173,11 @@ nav {
 .projects-grid {
   display: grid;
   gap: 1px;
-  background: var(--border);
+  background: white;
 }
 
 .project-card {
-  background: var(--bg);
+  background: white;
   padding: 2rem 0;
   display: grid;
   grid-template-columns: 1fr auto;
