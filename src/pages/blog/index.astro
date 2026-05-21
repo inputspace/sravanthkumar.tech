@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const sorted = posts.sort((a,b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+<Layout title="Blog — Sravanth Kumar" page="Blog">
+  <style>
+    .page-emoji { font-size: 2.5rem; margin-bottom: 0.4rem; display: block; }
+    h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; color: #37352f; margin-bottom: 0.35rem; }
+    .subtitle { font-size: 0.875rem; color: #9b9a97; margin-bottom: 2rem; }
+    .divider { border: none; border-top: 1px solid #e9e9e7; margin: 1.25rem 0; }
+    .post-row { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; padding: 0.9rem 0; border-bottom: 1px solid #f0f0ee; text-decoration: none; color: inherit; align-items: start; }
+    .post-row:first-child { border-top: 1px solid #f0f0ee; }
+    .post-row:hover .post-title { color: #2563eb; }
+    .post-title { font-size: 0.925rem; font-weight: 500; color: #37352f; margin-bottom: 0.2rem; transition: color 0.1s; }
+    .post-desc { font-size: 0.825rem; color: #9b9a97; line-height: 1.5; margin-bottom: 0.5rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .tag { font-size: 0.68rem; background: #f1f1ef; color: #6b6b6b; border-radius: 3px; padding: 0.12rem 0.45rem; }
+    .post-date { font-size: 0.78rem; color: #c7c6c3; white-space: nowrap; padding-top: 0.1rem; }
+  </style>
+
+  <span class="page-emoji">✍️</span>
+  <h1>Blog</h1>
+  <p class="subtitle">Build logs, ideas, and things I figured out.</p>
+  <hr class="divider" />
+
+  {sorted.map(post => (
+    <a class="post-row" href={`/blog/${post.slug}`}>
+      <div>
+        <p class="post-title">{post.data.title}</p>
+        <p class="post-desc">{post.data.description}</p>
+        {post.data.tags && (
+          <div class="tags">
+            {post.data.tags.map((t: string) => <span class="tag">{t}</span>)}
+          </div>
+        )}
+      </div>
+      <span class="post-date">
+        {new Date(post.data.date).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })}
+      </span>
+    </a>
+  ))}
+</Layout>

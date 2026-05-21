@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+const projects = await getCollection('projects');
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const recentPosts = posts.sort((a,b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()).slice(0,3);
+const featuredProjects = projects.filter(p => p.data.featured).slice(0,3);
+---
+<Layout title="Sravanth Kumar" page="Home">
+  <style>
+    .page-emoji { font-size: 2.5rem; margin-bottom: 0.4rem; display: block; }
+    h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; color: #37352f; margin-bottom: 0.4rem; }
+    .bio { font-size: 0.9rem; color: #6b6b6b; line-height: 1.7; max-width: 520px; margin-bottom: 0; }
+    .divider { border: none; border-top: 1px solid #e9e9e7; margin: 1.75rem 0; }
+    .section-label { font-size: 0.7rem; font-weight: 600; color: #9b9a97; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; }
+    .section-label a { font-size: 0.75rem; font-weight: 400; color: #9b9a97; text-decoration: none; text-transform: none; letter-spacing: 0; }
+    .section-label a:hover { color: #37352f; }
+
+    .item-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.45rem 0; border-bottom: 1px solid #f0f0ee; text-decoration: none; color: inherit; font-size: 0.875rem; }
+    .item-row:first-child { border-top: 1px solid #f0f0ee; }
+    .item-row:hover .item-title { color: #2563eb; }
+    .item-title { font-weight: 500; transition: color 0.1s; }
+    .item-desc { font-size: 0.8rem; color: #9b9a97; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 260px; }
+    .item-date { font-size: 0.78rem; color: #c7c6c3; white-space: nowrap; flex-shrink: 0; }
+  </style>
+
+  <span class="page-emoji">⚒️</span>
+  <h1>Sravanth Kumar</h1>
+  <p class="bio">Builder of tools. Application Support Engineer. Based in Khammam, India.<br/>I make things that help people think and work better — starting with myself.</p>
+
+  <hr class="divider" />
+
+  <div class="section-label">
+    Recent projects
+    <a href="/projects">All projects →</a>
+  </div>
+  {featuredProjects.map(p => (
+    <a class="item-row" href={p.data.link || '/projects'} target={p.data.link ? '_blank' : '_self'} rel="noopener">
+      <span class="item-title">{p.data.title}</span>
+      <span class="item-desc">{p.data.description}</span>
+    </a>
+  ))}
+
+  <hr class="divider" />
+
+  <div class="section-label">
+    Recent posts
+    <a href="/blog">All posts →</a>
+  </div>
+  {recentPosts.map(p => (
+    <a class="item-row" href={`/blog/${p.slug}`}>
+      <span class="item-title">{p.data.title}</span>
+      <span class="item-date">{new Date(p.data.date).toLocaleDateString('en-IN', { month:'short', year:'numeric' })}</span>
+    </a>
+  ))}
+</Layout>

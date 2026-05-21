@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="About — Sravanth Kumar" page="About">
+  <style>
+    .page-emoji { font-size: 2.5rem; margin-bottom: 0.4rem; display: block; }
+    h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; color: #37352f; margin-bottom: 1.75rem; }
+    .divider { border: none; border-top: 1px solid #e9e9e7; margin: 1.5rem 0; }
+    .section-label { font-size: 0.7rem; font-weight: 600; color: #9b9a97; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+    p { font-size: 0.9rem; color: #37352f; line-height: 1.8; margin-bottom: 0.75rem; }
+    .skills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill { font-size: 0.8rem; background: #f1f1ef; color: #37352f; border-radius: 4px; padding: 0.25rem 0.65rem; }
+    .tl-row { display: flex; gap: 1.25rem; padding: 0.55rem 0; border-bottom: 1px solid #f0f0ee; font-size: 0.875rem; }
+    .tl-row:first-child { border-top: 1px solid #f0f0ee; }
+    .tl-year { width: 70px; min-width: 70px; color: #9b9a97; font-size: 0.78rem; padding-top: 0.1rem; }
+    .tl-title { font-weight: 500; color: #37352f; }
+    .tl-sub { color: #9b9a97; font-size: 0.8rem; margin-top: 0.1rem; }
+  </style>
+
+  <span class="page-emoji">👤</span>
+  <h1>About</h1>
+
+  <div class="section-label">Who I am</div>
+  <p>I'm Sravanth Kumar — Application Support Engineer at an EdTech company, based in Khammam, India.</p>
+  <p>I build tools. Most of what I make starts as something I personally needed — a better battery widget, a way to get honest feedback, a system to stay accountable. I use myself as the first and most honest user.</p>
+  <p>I've been building personal systems in Notion since 2019. That habit shapes how I approach everything — including code.</p>
+
+  <hr class="divider" />
+
+  <div class="section-label">Stack</div>
+  <div class="skills">
+    <span class="skill">React</span>
+    <span class="skill">Vite</span>
+    <span class="skill">Electron</span>
+    <span class="skill">Anthropic API</span>
+    <span class="skill">Capacitor</span>
+    <span class="skill">GitHub Actions</span>
+    <span class="skill">Astro</span>
+    <span class="skill">Notion</span>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Timeline</div>
+  <div>
+    <div class="tl-row"><span class="tl-year">2024</span><div><div class="tl-title">Application Support Engineer</div><div class="tl-sub">EdTech company</div></div></div>
+    <div class="tl-row"><span class="tl-year">2024</span><div><div class="tl-title">Built Mirror Mirror</div><div class="tl-sub">AI photo feedback app — React, Vite, Anthropic API</div></div></div>
+    <div class="tl-row"><span class="tl-year">2024</span><div><div class="tl-title">Built Battery Widget</div><div class="tl-sub">Floating Windows widget — Electron, React</div></div></div>
+    <div class="tl-row"><span class="tl-year">2019</span><div><div class="tl-title">Started using Notion</div><div class="tl-sub">As a self-awareness and planning system</div></div></div>
+  </div>
+</Layout>

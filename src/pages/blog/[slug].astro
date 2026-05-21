@@ -1,0 +1,89 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+<Layout title={`${post.data.title} — Sravanth Kumar`} page="Blog">
+  <style>
+    .back { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.825rem; color: #9b9a97; text-decoration: none; margin-bottom: 2rem; }
+    .back:hover { color: #37352f; }
+
+    .post-meta { margin-bottom: 2rem; }
+    .post-date { font-size: 0.8rem; color: #9b9a97; margin-bottom: 0.5rem; }
+    h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; color: #37352f; line-height: 1.25; margin-bottom: 0.5rem; }
+    .post-desc { font-size: 0.95rem; color: #6b6b6b; line-height: 1.6; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.75rem; }
+    .tag { font-size: 0.7rem; background: #f1f1ef; color: #6b6b6b; border-radius: 3px; padding: 0.15rem 0.5rem; }
+
+    .divider { border: none; border-top: 1px solid #e9e9e7; margin: 1.75rem 0; }
+
+    /* Prose styles for markdown content */
+    .prose { font-size: 0.925rem; line-height: 1.8; color: #37352f; }
+    .prose h2 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em; margin: 2rem 0 0.6rem; color: #37352f; }
+    .prose h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: #37352f; }
+    .prose p { margin-bottom: 1rem; }
+    .prose a { color: #2563eb; text-decoration: underline; text-underline-offset: 2px; }
+    .prose a:hover { text-decoration: none; }
+    .prose ul, .prose ol { padding-left: 1.4rem; margin-bottom: 1rem; }
+    .prose li { margin-bottom: 0.3rem; }
+    .prose blockquote { border-left: 3px solid #e9e9e7; padding-left: 1rem; color: #6b6b6b; margin: 1.25rem 0; font-style: italic; }
+    .prose img { max-width: 100%; border-radius: 6px; border: 1px solid #e9e9e7; margin: 1.25rem 0; display: block; }
+    .prose hr { border: none; border-top: 1px solid #e9e9e7; margin: 2rem 0; }
+    .prose strong { font-weight: 600; color: #37352f; }
+
+    /* Code */
+    .prose code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.82rem; background: #f1f1ef; padding: 0.15rem 0.4rem; border-radius: 4px; color: #eb5757; }
+    .prose pre { background: #1e1e1e; border-radius: 8px; padding: 1.25rem; overflow-x: auto; margin: 1.25rem 0; }
+    .prose pre code { background: none; padding: 0; color: #d4d4d4; font-size: 0.82rem; border-radius: 0; }
+
+    /* Download links */
+    .prose a[href$=".pdf"],
+    .prose a[href$=".exe"],
+    .prose a[href$=".zip"] {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #f7f7f5;
+      border: 1px solid #e9e9e7;
+      border-radius: 6px;
+      padding: 0.4rem 0.85rem;
+      font-size: 0.82rem;
+      color: #37352f;
+      text-decoration: none;
+      font-weight: 500;
+      margin: 0.25rem 0;
+    }
+    .prose a[href$=".pdf"]:hover,
+    .prose a[href$=".exe"]:hover,
+    .prose a[href$=".zip"]:hover { background: #efeeec; }
+    .prose a[href$=".pdf"]::before { content: "📄 "; }
+    .prose a[href$=".exe"]::before { content: "⬇️ "; }
+    .prose a[href$=".zip"]::before { content: "📦 "; }
+  </style>
+
+  <a class="back" href="/blog">← Back to blog</a>
+
+  <div class="post-meta">
+    <div class="post-date">{new Date(post.data.date).toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })}</div>
+    <h1>{post.data.title}</h1>
+    <p class="post-desc">{post.data.description}</p>
+    {post.data.tags && (
+      <div class="tags">
+        {post.data.tags.map((t: string) => <span class="tag">{t}</span>)}
+      </div>
+    )}
+  </div>
+
+  <hr class="divider" />
+
+  <article class="prose">
+    <Content />
+  </article>
+</Layout>
