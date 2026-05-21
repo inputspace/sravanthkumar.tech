@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const projects = await getCollection('projects');
-const featured = projects.sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0));
+const sorted = projects.sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0));
 ---
 
 <Layout title="Sravanth Kumar — Builder & Support Engineer">
@@ -18,33 +18,37 @@ const featured = projects.sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.fea
       </ul>
     </nav>
 
-    <!-- Hero -->
     <section class="hero">
-      <div class="hero-label">Available for opportunities</div>
-      <h1 class="hero-name">
-        Sravanth<br /><em>Kumar</em>
-      </h1>
-      <p class="hero-bio">
-        Application Support Engineer at an EdTech company. I build tools for people who think differently — productivity apps, personal systems, and things that make quiet work visible.
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Open to opportunities
+      </div>
+      <h1 class="hero-name">Sravanth Kumar</h1>
+      <p class="hero-tagline">
+        Application Support Engineer & builder of tools for people who think differently.
+        Based in Khammam, India.
       </p>
-      <div class="hero-status">
-        <span class="status-dot"></span>
-        Based in Khammam, India
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#projects">See my work</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
       </div>
     </section>
 
-    <!-- Projects -->
     <section class="section" id="projects">
-      <div class="section-header">
-        <span class="section-num">01</span>
-        <h2 class="section-title">Things I've built</h2>
-      </div>
+      <p class="section-label">Work</p>
+      <h2 class="section-title">Things I've built</h2>
+      <p class="section-desc">Personal tools, productivity apps, and experiments — mostly things I needed myself.</p>
 
-      <div class="projects-grid">
-        {featured.map((project) => (
-          <div class="project-card">
+      <div class="projects-list">
+        {sorted.map((project) => (
+          <a
+            class="project-item"
+            href={project.data.link || '#'}
+            target={project.data.link ? '_blank' : '_self'}
+            rel="noopener"
+          >
             <div>
-              <h3 class="project-title">{project.data.title}</h3>
+              <p class="project-title">{project.data.title}</p>
               <p class="project-desc">{project.data.description}</p>
               {project.data.tags && (
                 <div class="project-tags">
@@ -54,57 +58,48 @@ const featured = projects.sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.fea
                 </div>
               )}
             </div>
-            {project.data.link && (
-              <a class="project-link" href={project.data.link} target="_blank" rel="noopener">
-                View ↗
-              </a>
-            )}
-          </div>
+            <span class="project-arrow">↗</span>
+          </a>
         ))}
       </div>
     </section>
 
-    <!-- About -->
     <section class="section" id="about">
-      <div class="section-header">
-        <span class="section-num">02</span>
-        <h2 class="section-title">About me</h2>
+      <p class="section-label">About</p>
+      <h2 class="section-title">A bit about me</h2>
+
+      <div class="about-text">
+        <p>
+          I'm a support engineer with a builder's mindset. My day job is keeping EdTech systems
+          running smoothly — but what I really enjoy is building tools that help people work better.
+        </p>
+        <p>
+          I've been using Notion as a self-awareness and planning system since 2019. Most of what
+          I build starts as a personal problem I needed to solve.
+        </p>
       </div>
 
-      <div class="about-grid">
-        <div class="about-text">
-          <p>
-            I'm a support engineer with a builder's mindset. My day job is keeping EdTech systems running — my real interest is building tools that help sensitive, neurodivergent people work better.
-          </p>
-          <p>
-            I've been using Notion as a self-awareness and planning system since 2019. Most of what I build starts as a personal problem I needed to solve.
-          </p>
-        </div>
-
-        <ul class="skills-list">
-          <li>Application Support</li>
-          <li>React / Vite</li>
-          <li>Vibe Coding</li>
-          <li>Anthropic API</li>
-          <li>Notion Power User</li>
-          <li>System Building</li>
-        </ul>
+      <div class="skills-grid">
+        <span class="skill-chip">React / Vite</span>
+        <span class="skill-chip">Electron</span>
+        <span class="skill-chip">Anthropic API</span>
+        <span class="skill-chip">App Support</span>
+        <span class="skill-chip">Notion</span>
+        <span class="skill-chip">System Building</span>
       </div>
     </section>
 
-    <!-- Contact -->
     <section class="section" id="contact">
-      <div class="section-header">
-        <span class="section-num">03</span>
-        <h2 class="section-title">Get in touch</h2>
-      </div>
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Get in touch</h2>
+      <p class="section-desc">Open to collaborations, opportunities, or just a good conversation.</p>
 
       <div class="contact-links">
         <a class="contact-link" href="mailto:sravanthkumarx@gmail.com">
-          ↳ sravanthkumarx@gmail.com
+          ✉ sravanthkumarx@gmail.com
         </a>
         <a class="contact-link" href="https://github.com/inputspace" target="_blank" rel="noopener">
-          ↳ github.com/inputspace
+          ↗ github.com/inputspace
         </a>
       </div>
     </section>
